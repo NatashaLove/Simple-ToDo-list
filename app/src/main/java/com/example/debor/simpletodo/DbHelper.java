@@ -1,9 +1,12 @@
 package com.example.debor.simpletodo;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DbHelper extends SQLiteOpenHelper{
 
@@ -45,8 +48,25 @@ public class DbHelper extends SQLiteOpenHelper{
     public void deleteTask (String task){
 // Anytime you use a static method inside its own class you should use this.- DbHelper
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DB_TABLE, DB_COLUMN + " - ? ", new String[]{task});
+        db.delete(DB_TABLE, DB_COLUMN + " - ? ", new String[]{task}); // WHY? new? array?
         db.close();
+
+    }
+
+    // see ArrayList
+    public ArrayList<String> getTaskList () {
+        ArrayList<String> taskList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DB_TABLE, new String[]{DB_COLUMN}, null, null, null,null, null);
+        while (cursor.moveToNext()) {
+
+            int index = cursor.getColumnIndex(DB_COLUMN);
+            taskList.add(cursor.getString(index));
+        }
+
+        cursor.close();
+        db.close();
+        return taskList;
 
     }
 }
