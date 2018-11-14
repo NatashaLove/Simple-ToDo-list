@@ -1,8 +1,14 @@
 package com.example.debor.simpletodo;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -41,4 +47,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        //change menu item color
+        Drawable icon = menu.getItem(0).getIcon();
+        icon.mutate();
+        icon.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.action_add_task;
+            final EditText taskEditText = new EditText(this);
+                AlertDialog dialog = new AlertDialog.Builder(this);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
