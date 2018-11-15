@@ -48,7 +48,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public void deleteTask (String task){
 // Anytime you use a static method inside its own class you should use this.- DbHelper
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DB_TABLE, DB_COLUMN + " - ? ", new String[]{task}); // WHY? new? array?
+        db.delete(DB_TABLE, DB_COLUMN + " = ? ", new String[]{task}); // WHY? new? array?
         db.close();
 
     }

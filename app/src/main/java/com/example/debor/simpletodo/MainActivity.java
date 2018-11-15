@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dbHelper = new DbHelper(this);
-        lstTask = (ListView)findViewById(R.id.lstTask);
+        lstTask = (ListView)findViewById(R.id.lstItems);
         loadTaskList();
 
     }
@@ -68,24 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
 
-            case R.id.action_add_task;
-            final EditText taskEditText = new EditText(this);
+            case R.id.action_add_task:
+                final EditText taskEditText = new EditText(this);
                 AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Add New Task")
-                .setMessage("What do you want to do next?")
-                .setView(taskEditText)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    .setTitle("Add New Task")
+                    .setMessage("What do you want to do next?")
+                    .setView(taskEditText)
+                    .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                        String task = String.valueOf(taskEditText.getText());
-                        dbHelper.insertNewTask(task);
-                        loadTaskList();
-                    }
-                })
-
-                .setNegativeButton("Cancel", null)
-                .create();
+                            String task = String.valueOf(taskEditText.getText());
+                            dbHelper.insertNewTask(task);
+                            loadTaskList();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .create();
             dialog.show();
             return true;
         }
